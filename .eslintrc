@@ -1,0 +1,21 @@
+{
+  "extends": ["airbnb/base", "eslint:recommended", "prettier"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+
+  "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "always",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "no-unused-expressions": "off"
+  }
+}
