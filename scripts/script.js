@@ -30,6 +30,8 @@ function creatLayout() {
   let COMMAND_LEFT = document.querySelector('.command-left');
   let COMMAND_RIGHT = document.querySelector('.command-right');
   let keyboard_key_array = document.querySelectorAll('.keyboard_key');
+  let SHIFT = document.querySelectorAll('.shift');
+
   function registerChanger() {
     CAPS_LOCK.classList.toggle('active');
     if (CAPS_LOCK.classList.contains('active')) {
@@ -80,6 +82,7 @@ function creatLayout() {
   CAPS_LOCK.addEventListener('click', registerChanger);
   COMMAND_LEFT.addEventListener('click', languageSwitching);
   COMMAND_RIGHT.addEventListener('click', languageSwitching);
+  SHIFT.addEventListener('mousedown', shiftSwitching);
 }
 
 document.addEventListener('DOMContentLoaded', creatLayout);
