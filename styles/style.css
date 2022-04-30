@@ -80,8 +80,10 @@ main {
 .keyboard {
   background: #aad2e9;
   width: 100%;
-  box-shadow: 0 0 50px 0, 0, 0, 0.5;
+  border-radius: 8px;
+  padding: 5px;
   height: 265px;
+  box-shadow: 10px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 button {
@@ -101,7 +103,6 @@ button:active {
 
 .keyboard_keys {
   text-align: center;
-  border-radius: 8px;
 }
 
 .keyboard_key {

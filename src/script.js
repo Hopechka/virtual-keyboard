@@ -149,18 +149,18 @@ function creatKeyboardSection() {
   SECTION_KEYBOARD.append(keyboard_keys);
   for (let i = 0; i < 65; i++) {
     if (i == 13 || i == 14 || i == 28 || i == 40 || i == 41) {
-      keyboard_keys.append(BtnsCreater('long'));
+      keyboard_keys.append(btnsCreater('long'));
     } else if (i == 59) {
-      keyboard_keys.append(BtnsCreater('extra-long'));
+      keyboard_keys.append(btnsCreater('extra-long'));
     } else {
-      keyboard_keys.append(BtnsCreater('normal'));
+      keyboard_keys.append(btnsCreater('normal'));
     }
   }
 
   return SECTION_KEYBOARD;
 }
 
-function BtnsCreater(size) {
+function btnsCreater(size) {
   let BTN = document.createElement('button');
   BTN.classList.add('keyboard_key');
   BTN.innerHTML = registerChoose[letter];
