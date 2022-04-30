@@ -1,8 +1,10 @@
 import {
   ENG_LOWER_CASE,
   ENG_UPPER_CASE,
+  ENG_SHIFT_CASE,
   RUS_LOWER_CASE,
   RUS_UPPER_CASE,
+  RUS_SHIFT_CASE,
 } from './keyboard.js';
 
 let registerChoose = ENG_LOWER_CASE;
@@ -30,7 +32,7 @@ function creatLayout() {
   let COMMAND_LEFT = document.querySelector('.command-left');
   let COMMAND_RIGHT = document.querySelector('.command-right');
   let keyboard_key_array = document.querySelectorAll('.keyboard_key');
-  let SHIFT = document.querySelectorAll('.shift');
+  let SHIFT_LIST = document.querySelectorAll('.shift');
 
   function registerChanger() {
     CAPS_LOCK.classList.toggle('active');
@@ -77,12 +79,54 @@ function creatLayout() {
       }
     }
   }
+
   //добавляю функционал для Shift
+  function shiftSwitching() {
+    lang == 'en'
+      ? (registerChoose = ENG_SHIFT_CASE)
+      : (registerChoose = RUS_SHIFT_CASE);
+
+    for (let i = 0; i < 65; i++) {
+      if (
+        (i >= 0 && i <= 12) ||
+        (i >= 15 && i <= 27) ||
+        (i >= 29 && i <= 39) ||
+        (i >= 42 && i <= 51)
+      ) {
+        keyboard_key_array[i].innerHTML = registerChoose[i];
+      }
+    }
+  }
+  function anShiftSwitching() {
+    if (CAPS_LOCK.classList.contains('active')) {
+      lang == 'en'
+        ? (registerChoose = ENG_UPPER_CASE)
+        : (registerChoose = RUS_UPPER_CASE);
+    } else {
+      lang == 'en'
+        ? (registerChoose = ENG_LOWER_CASE)
+        : (registerChoose = RUS_LOWER_CASE);
+    }
+
+    for (let i = 0; i < 65; i++) {
+      if (
+        (i >= 0 && i <= 12) ||
+        (i >= 15 && i <= 27) ||
+        (i >= 29 && i <= 39) ||
+        (i >= 42 && i <= 51)
+      ) {
+        keyboard_key_array[i].innerHTML = registerChoose[i];
+      }
+    }
+  }
 
   CAPS_LOCK.addEventListener('click', registerChanger);
   COMMAND_LEFT.addEventListener('click', languageSwitching);
   COMMAND_RIGHT.addEventListener('click', languageSwitching);
-  SHIFT.addEventListener('mousedown', shiftSwitching);
+  SHIFT_LIST[0].addEventListener('mousedown', shiftSwitching);
+  SHIFT_LIST[1].addEventListener('mousedown', shiftSwitching);
+  SHIFT_LIST[0].addEventListener('mouseup', anShiftSwitching);
+  SHIFT_LIST[1].addEventListener('mouseup', anShiftSwitching);
 }
 
 document.addEventListener('DOMContentLoaded', creatLayout);
