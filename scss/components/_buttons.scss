@@ -12,7 +12,7 @@ button {
   width: 6%;
   max-width: 90px;
   border-radius: 8px;
-  transition: border-radius 0.4s;
+  transition: all 0.4s;
   vertical-align: top;
   @include flex-center;
   margin: 4px;
@@ -24,12 +24,16 @@ button {
   &:active {
     border-radius: 20px;
   }
+  &.active {
+    background: $keyboard-key-active-color;
+    border-radius: 20px;
+  }
 }
 .keyboard_key-long {
   width: 12%;
   max-width: 180px;
 }
 .keyboard_key-extra-long {
-  width: 38%;
+  width: 39%;
   max-width: 540px;
 }
