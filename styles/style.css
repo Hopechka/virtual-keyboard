@@ -74,10 +74,11 @@ main {
 .screen {
   width: 100%;
   width: 800px;
-  overflow: scroll;
+  overflow: auto;
   font-family: 'Roboto', Arial, sans-serif;
   font-weight: normal;
   font-size: 18px;
+  background: #ffffb4;
 }
 
 .keyboard {
