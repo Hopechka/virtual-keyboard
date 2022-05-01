@@ -75,6 +75,9 @@ main {
   width: 100%;
   width: 800px;
   overflow: scroll;
+  font-family: 'Roboto', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 18px;
 }
 
 .keyboard {
@@ -134,6 +137,13 @@ button:active {
 }
 
 .keyboard_key.active {
+  background: #4da2d3;
+  left: 5px;
+  top: 5px;
+  box-shadow: 0 0 0 #000;
+}
+
+.keyboard_key.press {
   background: #4da2d3;
   left: 5px;
   top: 5px;
