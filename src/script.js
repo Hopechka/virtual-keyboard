@@ -327,30 +327,6 @@ function creatLayout() {
     } catch (i) {
       i;
     }
-    // if (e.key === 'Tab') {
-    //   TEXTAREA_SCREEN.value += '   ';
-    // } else if (e.key === 'Enter') {
-    //   TEXTAREA_SCREEN.value += '\n';
-    // } else if (
-    //   e.key === 'Alt' ||
-    //   e.key === 'Control' ||
-    //   e.key === 'CapsLock' ||
-    //   e.key === 'Shift' ||
-    //   e.key === 'Meta' ||
-    //   e.key === 'Backspace'
-    // ) {
-    //   TEXTAREA_SCREEN.value += '';
-    // } else if (e.key === 'ArrowUp') {
-    //   TEXTAREA_SCREEN.value += '▲';
-    // } else if (e.key === 'ArrowDown') {
-    //   TEXTAREA_SCREEN.value += '▼';
-    // } else if (e.key === 'ArrowLeft') {
-    //   TEXTAREA_SCREEN.value += '◀';
-    // } else if (e.key === 'ArrowRight') {
-    //   TEXTAREA_SCREEN.value += '▶';
-    // } else {
-    //   TEXTAREA_SCREEN.value += e.key;
-    // }
   });
 
   document.addEventListener('keyup', (e) => {
@@ -358,9 +334,41 @@ function creatLayout() {
   });
 
   document.addEventListener('click', (e) => {
-    const target = e.target.closest('.keyboard_key');
-    console.log(target.innerHTML);
-    TEXTAREA_SCREEN.value += target.innerHTML;
+    if (e.target.classList.contains('keyboard_key')) {
+      const target = e.target.closest('.keyboard_key');
+      if (target.innerHTML === registerChoose[14]) {
+        TEXTAREA_SCREEN.value += '   ';
+      } else if (target.innerHTML === registerChoose[40]) {
+        TEXTAREA_SCREEN.value += '\n';
+      } else if (target.innerHTML === registerChoose[59]) {
+        TEXTAREA_SCREEN.value += ' ';
+      } else if (
+        target.innerHTML === registerChoose[57] ||
+        target.innerHTML === registerChoose[61] ||
+        target.innerHTML === registerChoose[56] ||
+        target.innerHTML === registerChoose[28] ||
+        target.innerHTML === registerChoose[41] ||
+        target.innerHTML === registerChoose[54] ||
+        target.innerHTML === registerChoose[58] ||
+        target.innerHTML === registerChoose[60] ||
+        target.innerHTML === registerChoose[55]
+      ) {
+        TEXTAREA_SCREEN.value += '';
+      } else if (target.innerHTML === registerChoose[53]) {
+        TEXTAREA_SCREEN.value += '▲';
+      } else if (target.innerHTML === registerChoose[63]) {
+        TEXTAREA_SCREEN.value += '▼';
+      } else if (target.innerHTML === registerChoose[62]) {
+        TEXTAREA_SCREEN.value += '◀';
+      } else if (target.innerHTML === registerChoose[64]) {
+        TEXTAREA_SCREEN.value += '▶';
+      } else if (target.innerHTML === registerChoose[13]) {
+        const str = TEXTAREA_SCREEN.value;
+        TEXTAREA_SCREEN.value = str.substr(0, str.length - 1);
+      } else {
+        TEXTAREA_SCREEN.value += target.innerHTML;
+      }
+    }
   });
 }
 
