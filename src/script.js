@@ -10,6 +10,23 @@ import {
 let registerChoose = ENG_LOWER_CASE;
 let lang = 'en';
 let letter = 0;
+const backspace = registerChoose[13];
+const tab = registerChoose[14];
+const capsLock = registerChoose[28];
+const enter = registerChoose[40];
+const leftShift = registerChoose[41];
+const arrowUp = registerChoose[53];
+const rightShift = registerChoose[54];
+const fn = registerChoose[55];
+const control = registerChoose[56];
+const leftAlt = registerChoose[57];
+const leftCommand = registerChoose[58];
+const space = registerChoose[59];
+const rightCommand = registerChoose[60];
+const rightAlt = registerChoose[61];
+const arrowLeft = registerChoose[62];
+const arrowDown = registerChoose[63];
+const arrowRight = registerChoose[64];
 
 function creatTextareaSection() {
   const SECTION_SCREEN = document.createElement('section');
@@ -31,71 +48,52 @@ function btnsCreater(size) {
   if (size === 'extra-long') {
     BTN.classList.add('keyboard_key-extra-long');
   }
-  if (BTN.innerHTML === 'caps lock') {
+  if (BTN.innerHTML === capsLock) {
     BTN.classList.add('capslock');
   }
-  if (BTN.innerHTML === 'shift') {
-    BTN.classList.add('shift');
-  }
-  if (BTN.innerHTML === '<span class="material-icons">space_bar</span>') {
+  if (BTN.innerHTML === space) {
     BTN.classList.add('space');
   }
-  if (
-    BTN.innerHTML ===
-    '<span class="material-icons left">keyboard_command_key</span>'
-  ) {
+  if (BTN.innerHTML === leftCommand) {
     BTN.classList.add('metaleft');
   }
-  if (
-    BTN.innerHTML ===
-    '<span class="material-icons right">keyboard_command_key</span>'
-  ) {
+  if (BTN.innerHTML === rightCommand) {
     BTN.classList.add('metaright');
   }
-  if (
-    BTN.innerHTML === '<span class="material-icons">keyboard_arrow_right</span>'
-  ) {
+  if (BTN.innerHTML === arrowRight) {
     BTN.classList.add('arrowright');
   }
-  if (
-    BTN.innerHTML === '<span class="material-icons">keyboard_arrow_left</span>'
-  ) {
+  if (BTN.innerHTML === arrowLeft) {
     BTN.classList.add('arrowleft');
   }
-  if (
-    BTN.innerHTML === '<span class="material-icons">keyboard_arrow_up</span>'
-  ) {
+  if (BTN.innerHTML === arrowUp) {
     BTN.classList.add('arrowup');
   }
-  if (
-    BTN.innerHTML === '<span class="material-icons">keyboard_arrow_down</span>'
-  ) {
+  if (BTN.innerHTML === arrowDown) {
     BTN.classList.add('arrowdown');
   }
-  if (BTN.innerHTML === '<span class="material-icons">keyboard_tab</span>') {
+  if (BTN.innerHTML === tab) {
     BTN.classList.add('tab');
   }
-  if (
-    BTN.innerHTML === '<span class="material-icons">keyboard_backspace</span>'
-  ) {
+  if (BTN.innerHTML === backspace) {
     BTN.classList.add('backspace');
   }
-  if (BTN.innerHTML === '<span class="shift-left">shift</span>') {
+  if (BTN.innerHTML === leftShift) {
     BTN.classList.add('shiftleft');
   }
-  if (BTN.innerHTML === '<span class="shift-right">shift</span>') {
+  if (BTN.innerHTML === rightShift) {
     BTN.classList.add('shiftright');
   }
-  if (BTN.innerHTML === 'control') {
+  if (BTN.innerHTML === control) {
     BTN.classList.add('controlleft');
   }
-  if (BTN.innerHTML === '<span class="alt-left">option</span>') {
+  if (BTN.innerHTML === leftAlt) {
     BTN.classList.add('altleft');
   }
-  if (BTN.innerHTML === '<span class="alt-right">option</span>') {
+  if (BTN.innerHTML === rightAlt) {
     BTN.classList.add('altright');
   }
-  if (BTN.innerHTML === 'enter') {
+  if (BTN.innerHTML === enter) {
     BTN.classList.add('enter');
   }
   letter += 1;
@@ -213,6 +211,7 @@ function creatLayout() {
         keyboardKeyArray[i].innerHTML = registerChoose[i];
       }
     }
+    console.log(registerChoose);
   }
   function anShiftSwitching() {
     if (lang === 'en') {
@@ -323,6 +322,7 @@ function creatLayout() {
         TEXTAREA_SCREEN.value = str.substr(0, str.length - 1);
       } else {
         TEXTAREA_SCREEN.value += e.key;
+        console.log(e.shiftKey);
       }
     } catch (i) {
       i;
@@ -334,35 +334,38 @@ function creatLayout() {
   });
 
   document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('keyboard_key')) {
+    if (
+      e.target.classList.contains('keyboard_key') ||
+      e.target.classList.contains('material-icons')
+    ) {
       const target = e.target.closest('.keyboard_key');
-      if (target.innerHTML === registerChoose[14]) {
+      if (target.innerHTML === tab) {
         TEXTAREA_SCREEN.value += '   ';
-      } else if (target.innerHTML === registerChoose[40]) {
+      } else if (target.innerHTML === enter) {
         TEXTAREA_SCREEN.value += '\n';
-      } else if (target.innerHTML === registerChoose[59]) {
+      } else if (target.innerHTML === space) {
         TEXTAREA_SCREEN.value += ' ';
       } else if (
-        target.innerHTML === registerChoose[57] ||
-        target.innerHTML === registerChoose[61] ||
-        target.innerHTML === registerChoose[56] ||
-        target.innerHTML === registerChoose[28] ||
-        target.innerHTML === registerChoose[41] ||
-        target.innerHTML === registerChoose[54] ||
-        target.innerHTML === registerChoose[58] ||
-        target.innerHTML === registerChoose[60] ||
-        target.innerHTML === registerChoose[55]
+        target.innerHTML === leftAlt ||
+        target.innerHTML === rightAlt ||
+        target.innerHTML === control ||
+        target.innerHTML === capsLock ||
+        target.innerHTML === leftShift ||
+        target.innerHTML === rightShift ||
+        target.innerHTML === leftCommand ||
+        target.innerHTML === rightCommand ||
+        target.innerHTML === fn
       ) {
         TEXTAREA_SCREEN.value += '';
-      } else if (target.innerHTML === registerChoose[53]) {
+      } else if (target.innerHTML === arrowUp) {
         TEXTAREA_SCREEN.value += '▲';
-      } else if (target.innerHTML === registerChoose[63]) {
+      } else if (target.innerHTML === arrowDown) {
         TEXTAREA_SCREEN.value += '▼';
-      } else if (target.innerHTML === registerChoose[62]) {
+      } else if (target.innerHTML === arrowLeft) {
         TEXTAREA_SCREEN.value += '◀';
-      } else if (target.innerHTML === registerChoose[64]) {
+      } else if (target.innerHTML === arrowRight) {
         TEXTAREA_SCREEN.value += '▶';
-      } else if (target.innerHTML === registerChoose[13]) {
+      } else if (target.innerHTML === backspace) {
         const str = TEXTAREA_SCREEN.value;
         TEXTAREA_SCREEN.value = str.substr(0, str.length - 1);
       } else {
