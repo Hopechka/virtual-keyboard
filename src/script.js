@@ -17,6 +17,7 @@ const tab = registerChoose[14];
 const capsLock = registerChoose[28];
 const enter = registerChoose[40];
 const leftShift = registerChoose[41];
+const del = registerChoose[52];
 const arrowUp = registerChoose[53];
 const rightShift = registerChoose[54];
 const fn = registerChoose[55];
@@ -135,7 +136,7 @@ function creatLayout() {
   HEADER_NAME.innerHTML = 'RSS Виртуальная клавиатура';
   MAIN.append(creatTextareaSection(), creatKeyboardSection());
   FOOTER.innerHTML =
-    'Клавиатура создана в операционной системе MAC OS <br/> Для переключения языка комбинация: option+space';
+    'Клавиатура создана в операционной системе MAC OS <br/> Для переключения языка комбинация: option+space <br/> Клавиша fn нажимается в сочетании с цифрами';
 
   // добавляю функционал для caps lock
   const CAPS_LOCK = document.querySelector('.capslock');
@@ -261,6 +262,9 @@ function creatLayout() {
           keyboardKeyArray[i].classList.add('press');
         }
       }
+      if (i === 55) {
+        keyboardKeyArray[i].classList.add('press');
+      }
     }
   }
   function virtualKeyboardUnPress(code) {
@@ -274,6 +278,9 @@ function creatLayout() {
         } else {
           keyboardKeyArray[i].classList.remove('press');
         }
+      }
+      if (i === 55) {
+        keyboardKeyArray[i].classList.remove('press');
       }
     }
   }
@@ -325,6 +332,9 @@ function creatLayout() {
       } else if (e.key === 'ArrowRight') {
         TEXTAREA_SCREEN.value += '▶';
       } else if (e.key === 'Backspace') {
+        const str = TEXTAREA_SCREEN.value;
+        TEXTAREA_SCREEN.value = str.substr(0, str.length - 1);
+      } else if (e.key === 'Delete') {
         const str = TEXTAREA_SCREEN.value;
         TEXTAREA_SCREEN.value = str.substr(0, str.length - 1);
       } else {
@@ -385,30 +395,14 @@ function creatLayout() {
       } else if (target.innerHTML === backspace) {
         const str = TEXTAREA_SCREEN.value;
         TEXTAREA_SCREEN.value = str.substr(0, str.length - 1);
+      } else if (target.innerHTML === del) {
+        const str = TEXTAREA_SCREEN.value;
+        TEXTAREA_SCREEN.value = str.substr(0, str.length - 1);
       } else {
         TEXTAREA_SCREEN.value += target.innerHTML;
       }
     }
   });
-
-  //   SHIFT_RIGHT.addEventListener('mousedown', () => {
-  //     document.dispatchEvent(
-  //       new KeyboardEvent('keydown', {
-  //         // key: 'Shift',
-  //         // code: 'ShiftRight',
-  //         shiftKey: true,
-  //       })
-  //     );
-  //   });
-  //   SHIFT_RIGHT.addEventListener('mouseup', () => {
-  //     document.dispatchEvent(
-  //       new KeyboardEvent('keyup', {
-  //         // key: 'Shift',
-  //         // code: 'ShiftRight',
-  //         shiftKey: false,
-  //       })
-  //     );
-  //   });
 }
 
 document.addEventListener('DOMContentLoaded', creatLayout);
