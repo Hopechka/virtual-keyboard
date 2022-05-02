@@ -11,6 +11,7 @@ import {
 let registerChoose = ENG_LOWER_CASE;
 let lang = 'en';
 let letter = 0;
+
 const backspace = registerChoose[13];
 const tab = registerChoose[14];
 const capsLock = registerChoose[28];
@@ -134,7 +135,7 @@ function creatLayout() {
   HEADER_NAME.innerHTML = 'RSS Виртуальная клавиатура';
   MAIN.append(creatTextareaSection(), creatKeyboardSection());
   FOOTER.innerHTML =
-    'Клавиатура создана в операционной системе MAC OS <br/> Для переключения языка комбинация: command+space';
+    'Клавиатура создана в операционной системе MAC OS <br/> Для переключения языка комбинация: option+space';
 
   // добавляю функционал для caps lock
   const CAPS_LOCK = document.querySelector('.capslock');
@@ -276,19 +277,37 @@ function creatLayout() {
       }
     }
   }
+  let altTime;
+  let spaceTime;
+  function changeLanguagePressTwoButtons(key, code) {
+    if (key === 'Alt') {
+      altTime = Date.now();
+    }
+    if (code === 'Space') {
+      spaceTime = Date.now();
+    }
+    if (Math.abs(altTime - spaceTime) < 250) {
+      languageSwitching();
+    }
+  }
 
   // переназначение клавиш клавиатуры
   const TEXTAREA_SCREEN = document.querySelector('.screen');
 
   document.addEventListener('keydown', (e) => {
-    console.log(e);
     virtualKeyboardPress(e.code);
+    if (e.key === 'Alt' || e.code === 'Space') {
+      changeLanguagePressTwoButtons(e.key, e.code);
+    }
+
     try {
       e.preventDefault();
       if (e.key === 'Tab') {
         TEXTAREA_SCREEN.value += '   ';
       } else if (e.key === 'Enter') {
         TEXTAREA_SCREEN.value += '\n';
+      } else if (e.code === 'Space') {
+        TEXTAREA_SCREEN.value += ' ';
       } else if (
         e.key === 'Alt' ||
         e.key === 'Control' ||
