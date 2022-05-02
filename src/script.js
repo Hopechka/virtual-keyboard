@@ -5,6 +5,7 @@ import {
   RUS_LOWER_CASE,
   RUS_UPPER_CASE,
   RUS_SHIFT_CASE,
+  KEY_CODE_TABLE,
 } from './keyboard.js';
 
 let registerChoose = ENG_LOWER_CASE;
@@ -211,7 +212,6 @@ function creatLayout() {
         keyboardKeyArray[i].innerHTML = registerChoose[i];
       }
     }
-    console.log(registerChoose);
   }
   function anShiftSwitching() {
     if (lang === 'en') {
@@ -293,7 +293,7 @@ function creatLayout() {
   const TEXTAREA_SCREEN = document.querySelector('.screen');
 
   document.addEventListener('keydown', (e) => {
-    //console.log(e);
+    console.log(e);
     virtualKeyboardPress(e.key, e.code);
     try {
       e.preventDefault();
@@ -321,8 +321,18 @@ function creatLayout() {
         const str = TEXTAREA_SCREEN.value;
         TEXTAREA_SCREEN.value = str.substr(0, str.length - 1);
       } else {
-        TEXTAREA_SCREEN.value += e.key;
-        console.log(e.shiftKey);
+        for (let i = 0; i < 65; i += 1) {
+          if (
+            (i >= 0 && i <= 12) ||
+            (i >= 15 && i <= 27) ||
+            (i >= 29 && i <= 39) ||
+            (i >= 42 && i <= 51)
+          ) {
+            if (KEY_CODE_TABLE[i] === e.code) {
+              TEXTAREA_SCREEN.value += registerChoose[i];
+            }
+          }
+        }
       }
     } catch (i) {
       i;
@@ -373,6 +383,25 @@ function creatLayout() {
       }
     }
   });
+
+  //   SHIFT_RIGHT.addEventListener('mousedown', () => {
+  //     document.dispatchEvent(
+  //       new KeyboardEvent('keydown', {
+  //         // key: 'Shift',
+  //         // code: 'ShiftRight',
+  //         shiftKey: true,
+  //       })
+  //     );
+  //   });
+  //   SHIFT_RIGHT.addEventListener('mouseup', () => {
+  //     document.dispatchEvent(
+  //       new KeyboardEvent('keyup', {
+  //         // key: 'Shift',
+  //         // code: 'ShiftRight',
+  //         shiftKey: false,
+  //       })
+  //     );
+  //   });
 }
 
 document.addEventListener('DOMContentLoaded', creatLayout);
