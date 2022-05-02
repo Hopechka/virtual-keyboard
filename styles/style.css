@@ -137,13 +137,6 @@ button:active {
   box-shadow: 0 0 0 #000;
 }
 
-.keyboard_key.active {
-  background: #4da2d3;
-  left: 5px;
-  top: 5px;
-  box-shadow: 0 0 0 #000;
-}
-
 .keyboard_key.press {
   background: #4da2d3;
   left: 5px;

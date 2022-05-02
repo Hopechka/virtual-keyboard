@@ -145,8 +145,8 @@ function creatLayout() {
   const SHIFT_RIGHT = document.querySelector('.shiftright');
 
   function registerChanger() {
-    CAPS_LOCK.classList.toggle('active');
-    if (CAPS_LOCK.classList.contains('active')) {
+    CAPS_LOCK.classList.toggle('press');
+    if (CAPS_LOCK.classList.contains('press')) {
       if (lang === 'en') {
         registerChoose = ENG_UPPER_CASE;
       } else {
@@ -171,7 +171,7 @@ function creatLayout() {
   // добавляю функционал для смены языка
   function languageSwitching() {
     lang === 'en' ? (lang = 'ru') : (lang = 'en');
-    if (CAPS_LOCK.classList.contains('active')) {
+    if (CAPS_LOCK.classList.contains('press')) {
       if (lang === 'en') {
         registerChoose = ENG_UPPER_CASE;
       } else {
@@ -219,7 +219,7 @@ function creatLayout() {
     } else {
       registerChoose = RUS_LOWER_CASE;
     }
-    if (CAPS_LOCK.classList.contains('active')) {
+    if (CAPS_LOCK.classList.contains('press')) {
       if (lang === 'en') {
         registerChoose = ENG_UPPER_CASE;
       } else {
@@ -248,42 +248,30 @@ function creatLayout() {
   SHIFT_RIGHT.addEventListener('mouseup', anShiftSwitching);
 
   // эмуляция нажатия клавиш на вирт. клавиатуре
-  function virtualKeyboardPress(key, code) {
+  function virtualKeyboardPress(code) {
     for (let i = 0; i < 65; i += 1) {
-      if (keyboardKeyArray[i].innerHTML === key) {
-        keyboardKeyArray[i].classList.add('press');
-      }
-    }
-    for (let i = 0; i < 65; i += 1) {
-      if ((i >= 13 && i <= 14) || i === 28 || (i >= 40 && i <= 41) || i >= 52) {
-        if (keyboardKeyArray[i].classList.contains(code.toLowerCase())) {
+      if (KEY_CODE_TABLE[i] === code) {
+        if (i === 28) {
+          registerChanger();
+        } else if (i === 41 || i === 54) {
+          shiftSwitching();
           keyboardKeyArray[i].classList.add('press');
-          if (i === 28) {
-            registerChanger();
-          }
-          if (i === 41 || i === 54) {
-            shiftSwitching();
-          }
+        } else {
+          keyboardKeyArray[i].classList.add('press');
         }
       }
     }
   }
-  function virtualKeyboardUnPress(key, code) {
+  function virtualKeyboardUnPress(code) {
     for (let i = 0; i < 65; i += 1) {
-      if (keyboardKeyArray[i].innerHTML === key) {
-        keyboardKeyArray[i].classList.remove('press');
-      }
-    }
-    for (let i = 0; i < 65; i += 1) {
-      if ((i >= 13 && i <= 14) || i === 28 || (i >= 40 && i <= 41) || i >= 52) {
-        if (keyboardKeyArray[i].classList.contains(code.toLowerCase())) {
+      if (KEY_CODE_TABLE[i] === code) {
+        if (i === 28) {
+          registerChanger();
+        } else if (i === 41 || i === 54) {
+          anShiftSwitching();
           keyboardKeyArray[i].classList.remove('press');
-          if (i === 28) {
-            registerChanger();
-          }
-          if (i === 41 || i === 54) {
-            anShiftSwitching();
-          }
+        } else {
+          keyboardKeyArray[i].classList.remove('press');
         }
       }
     }
@@ -294,7 +282,7 @@ function creatLayout() {
 
   document.addEventListener('keydown', (e) => {
     console.log(e);
-    virtualKeyboardPress(e.key, e.code);
+    virtualKeyboardPress(e.code);
     try {
       e.preventDefault();
       if (e.key === 'Tab') {
@@ -340,7 +328,7 @@ function creatLayout() {
   });
 
   document.addEventListener('keyup', (e) => {
-    virtualKeyboardUnPress(e.key, e.code);
+    virtualKeyboardUnPress(e.code);
   });
 
   document.addEventListener('click', (e) => {
