@@ -9,7 +9,7 @@ import {
 } from './keyboard.js';
 
 let registerChoose = ENG_LOWER_CASE;
-let lang;
+let lang = 'en';
 let letter = 0;
 
 const backspace = registerChoose[13];
@@ -171,9 +171,7 @@ function creatLayout() {
     }
   }
   // добавляю функционал для смены языка
-  function languageSwitching() {
-    lang === 'en' ? (lang = 'ru') : (lang = 'en');
-    window.localStorage.setItem('lang', lang);
+  function languageChange() {
     if (CAPS_LOCK.classList.contains('press')) {
       if (lang === 'en') {
         registerChoose = ENG_UPPER_CASE;
@@ -195,6 +193,11 @@ function creatLayout() {
         keyboardKeyArray[i].innerHTML = registerChoose[i];
       }
     }
+  }
+  function languageSwitching() {
+    lang === 'en' ? (lang = 'ru') : (lang = 'en');
+    window.localStorage.setItem('lang', lang);
+    languageChange();
   }
 
   // добавляю функционал для Shift
@@ -289,7 +292,7 @@ function creatLayout() {
       spaceTime = Date.now();
     }
     if (Math.abs(altTime - spaceTime) < 250) {
-      languageSwitching(lang);
+      languageSwitching();
     }
   }
 
@@ -400,8 +403,7 @@ function creatLayout() {
   });
   function getLocalStorage() {
     lang = localStorage.getItem('lang');
-    lang === 'en' ? (lang = 'ru') : (lang = 'en');
-    languageSwitching();
+    languageChange();
   }
   window.addEventListener('load', getLocalStorage);
 }
