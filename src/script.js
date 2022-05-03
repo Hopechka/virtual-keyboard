@@ -39,6 +39,7 @@ function creatTextareaSection() {
   SECTION_SCREEN.append(TEXTAREA);
   TEXTAREA.setAttribute('cols', '30');
   TEXTAREA.setAttribute('rows', '10');
+  TEXTAREA.autofocus = true;
   return SECTION_SCREEN;
 }
 function btnsCreater(size) {
@@ -81,6 +82,9 @@ function btnsCreater(size) {
   //   if (BTN.innerHTML === backspace) {
   //     BTN.classList.add('backspace');
   //   }
+  if (BTN.innerHTML === del) {
+    BTN.classList.add('del');
+  }
   if (BTN.innerHTML === leftShift) {
     BTN.classList.add('shiftleft');
   }
@@ -295,7 +299,27 @@ function creatLayout() {
       languageSwitching();
     }
   }
+  // настройка кнопки Delete
+  function delBtn() {
+    const myElement = document.querySelector('.screen');
+    const startPosition = myElement.selectionStart;
+    const endPosition = myElement.selectionEnd;
 
+    if (startPosition === endPosition) {
+      const newStr =
+        myElement.value.substr(0, startPosition) +
+        myElement.value.substr(startPosition + 1, myElement.value.length);
+      myElement.value = newStr;
+      myElement.focus();
+      console.log(
+        `The position of the cursor is (${startPosition}/${myElement.value.length})`
+      );
+    } else {
+      console.log(
+        `Selected text from (${startPosition} to ${endPosition} of ${myElement.value.length})`
+      );
+    }
+  }
   // переназначение клавиш клавиатуры
   const TEXTAREA_SCREEN = document.querySelector('.screen');
 
@@ -333,8 +357,7 @@ function creatLayout() {
         const str = TEXTAREA_SCREEN.value;
         TEXTAREA_SCREEN.value = str.substr(0, str.length - 1);
       } else if (e.key === 'Delete') {
-        const str = TEXTAREA_SCREEN.value;
-        TEXTAREA_SCREEN.value = str.substr(0, str.length - 1);
+        delBtn();
       } else {
         for (let i = 0; i < 65; i += 1) {
           if (
@@ -394,8 +417,7 @@ function creatLayout() {
         const str = TEXTAREA_SCREEN.value;
         TEXTAREA_SCREEN.value = str.substr(0, str.length - 1);
       } else if (target.innerHTML === del) {
-        const str = TEXTAREA_SCREEN.value;
-        TEXTAREA_SCREEN.value = str.substr(0, str.length - 1);
+        delBtn();
       } else {
         TEXTAREA_SCREEN.value += target.innerHTML;
       }
@@ -406,6 +428,10 @@ function creatLayout() {
     languageChange();
   }
   window.addEventListener('load', getLocalStorage);
+
+  window.addEventListener('onload', () => {
+    TEXTAREA_SCREEN.focus();
+  });
 }
 
 document.addEventListener('DOMContentLoaded', creatLayout);
