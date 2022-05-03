@@ -53,56 +53,23 @@ function btnsCreater(size) {
     BTN.classList.add('keyboard_key-extra-long');
   }
   if (BTN.innerHTML === capsLock) {
-    BTN.classList.add('capslock');
+    BTN.classList.add('caps-lock');
   }
-  //   if (BTN.innerHTML === space) {
-  //     BTN.classList.add('space');
-  //   }
   if (BTN.innerHTML === leftCommand) {
-    BTN.classList.add('metaleft');
+    BTN.classList.add('meta-left');
   }
   if (BTN.innerHTML === rightCommand) {
-    BTN.classList.add('metaright');
+    BTN.classList.add('meta-right');
   }
-  //   if (BTN.innerHTML === arrowRight) {
-  //     BTN.classList.add('arrowright');
-  //   }
-  //   if (BTN.innerHTML === arrowLeft) {
-  //     BTN.classList.add('arrowleft');
-  //   }
-  //   if (BTN.innerHTML === arrowUp) {
-  //     BTN.classList.add('arrowup');
-  //   }
-  //   if (BTN.innerHTML === arrowDown) {
-  //     BTN.classList.add('arrowdown');
-  //   }
-  //   if (BTN.innerHTML === tab) {
-  //     BTN.classList.add('tab');
-  //   }
-  //   if (BTN.innerHTML === backspace) {
-  //     BTN.classList.add('backspace');
-  //   }
   if (BTN.innerHTML === del) {
     BTN.classList.add('del');
   }
   if (BTN.innerHTML === leftShift) {
-    BTN.classList.add('shiftleft');
+    BTN.classList.add('shift-left');
   }
   if (BTN.innerHTML === rightShift) {
-    BTN.classList.add('shiftright');
+    BTN.classList.add('shift-right');
   }
-  if (BTN.innerHTML === control) {
-    BTN.classList.add('controlleft');
-  }
-  if (BTN.innerHTML === leftAlt) {
-    BTN.classList.add('altleft');
-  }
-  if (BTN.innerHTML === rightAlt) {
-    BTN.classList.add('altright');
-  }
-  //   if (BTN.innerHTML === enter) {
-  //     BTN.classList.add('enter');
-  //   }
   letter += 1;
   return BTN;
 }
@@ -143,12 +110,12 @@ function creatLayout() {
     'Клавиатура создана в операционной системе MAC OS <br/> Для переключения языка комбинация: option+space';
 
   // добавляю функционал для caps lock
-  const CAPS_LOCK = document.querySelector('.capslock');
-  const COMMAND_LEFT = document.querySelector('.metaleft');
-  const COMMAND_RIGHT = document.querySelector('.metaright');
+  const CAPS_LOCK = document.querySelector('.caps-lock');
+  const COMMAND_LEFT = document.querySelector('.meta-left');
+  const COMMAND_RIGHT = document.querySelector('.meta-right');
   const keyboardKeyArray = document.querySelectorAll('.keyboard_key');
-  const SHIFT_LEFT = document.querySelector('.shiftleft');
-  const SHIFT_RIGHT = document.querySelector('.shiftright');
+  const SHIFT_LEFT = document.querySelector('.shift-left');
+  const SHIFT_RIGHT = document.querySelector('.shift-right');
   const TEXTAREA_SCREEN = document.querySelector('.screen');
 
   function registerChanger() {
