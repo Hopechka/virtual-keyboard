@@ -149,6 +149,7 @@ function creatLayout() {
   const keyboardKeyArray = document.querySelectorAll('.keyboard_key');
   const SHIFT_LEFT = document.querySelector('.shiftleft');
   const SHIFT_RIGHT = document.querySelector('.shiftright');
+  const TEXTAREA_SCREEN = document.querySelector('.screen');
 
   function registerChanger() {
     CAPS_LOCK.classList.toggle('press');
@@ -301,29 +302,58 @@ function creatLayout() {
   }
   // настройка кнопки Delete
   function delBtn() {
-    const myElement = document.querySelector('.screen');
-    const startPosition = myElement.selectionStart;
-    const endPosition = myElement.selectionEnd;
+    const startPosition = TEXTAREA_SCREEN.selectionStart;
+    const endPosition = TEXTAREA_SCREEN.selectionEnd;
 
     if (startPosition === endPosition) {
-      const newStr =
-        myElement.value.substr(0, startPosition) +
-        myElement.value.substr(startPosition + 1, myElement.value.length);
-      myElement.value = newStr;
-      myElement.focus();
-      console.log(
-        `The position of the cursor is (${startPosition}/${myElement.value.length})`
-      );
+      TEXTAREA_SCREEN.focus();
+      TEXTAREA_SCREEN.value =
+        TEXTAREA_SCREEN.value.substr(0, startPosition) +
+        TEXTAREA_SCREEN.value.substr(
+          startPosition + 1,
+          TEXTAREA_SCREEN.value.length
+        );
+      TEXTAREA_SCREEN.setSelectionRange(startPosition, endPosition);
     } else {
-      console.log(
-        `Selected text from (${startPosition} to ${endPosition} of ${myElement.value.length})`
+      TEXTAREA_SCREEN.value =
+        TEXTAREA_SCREEN.value.substr(0, startPosition) +
+        TEXTAREA_SCREEN.value.substr(endPosition, TEXTAREA_SCREEN.value.length);
+      TEXTAREA_SCREEN.focus();
+      TEXTAREA_SCREEN.setSelectionRange(
+        startPosition,
+        endPosition - (endPosition - startPosition)
+      );
+    }
+  }
+  // настройка кнопки Backspace
+  function BackspaceBtn() {
+    const startPosition = TEXTAREA_SCREEN.selectionStart;
+    const endPosition = TEXTAREA_SCREEN.selectionEnd;
+
+    if (startPosition === endPosition) {
+      TEXTAREA_SCREEN.focus();
+      TEXTAREA_SCREEN.value =
+        TEXTAREA_SCREEN.value.substr(0, startPosition - 1) +
+        TEXTAREA_SCREEN.value.substr(
+          startPosition,
+          TEXTAREA_SCREEN.value.length
+        );
+
+      TEXTAREA_SCREEN.setSelectionRange(startPosition - 1, endPosition - 1);
+    } else {
+      TEXTAREA_SCREEN.value =
+        TEXTAREA_SCREEN.value.substr(0, startPosition) +
+        TEXTAREA_SCREEN.value.substr(endPosition, TEXTAREA_SCREEN.value.length);
+      TEXTAREA_SCREEN.setSelectionRange(
+        startPosition,
+        endPosition - (endPosition - startPosition)
       );
     }
   }
   // переназначение клавиш клавиатуры
-  const TEXTAREA_SCREEN = document.querySelector('.screen');
 
   document.addEventListener('keydown', (e) => {
+    TEXTAREA_SCREEN.focus();
     virtualKeyboardPress(e.code);
     if (e.key === 'Alt' || e.code === 'Space') {
       changeLanguagePressTwoButtons(e.key, e.code);
@@ -354,8 +384,7 @@ function creatLayout() {
       } else if (e.key === 'ArrowRight') {
         TEXTAREA_SCREEN.value += '▶';
       } else if (e.key === 'Backspace') {
-        const str = TEXTAREA_SCREEN.value;
-        TEXTAREA_SCREEN.value = str.substr(0, str.length - 1);
+        BackspaceBtn();
       } else if (e.key === 'Delete') {
         delBtn();
       } else {
@@ -378,10 +407,12 @@ function creatLayout() {
   });
 
   document.addEventListener('keyup', (e) => {
+    TEXTAREA_SCREEN.focus();
     virtualKeyboardUnPress(e.code);
   });
 
   document.addEventListener('click', (e) => {
+    TEXTAREA_SCREEN.focus();
     if (
       e.target.classList.contains('keyboard_key') ||
       e.target.classList.contains('material-icons')
@@ -414,8 +445,7 @@ function creatLayout() {
       } else if (target.innerHTML === arrowRight) {
         TEXTAREA_SCREEN.value += '▶';
       } else if (target.innerHTML === backspace) {
-        const str = TEXTAREA_SCREEN.value;
-        TEXTAREA_SCREEN.value = str.substr(0, str.length - 1);
+        BackspaceBtn();
       } else if (target.innerHTML === del) {
         delBtn();
       } else {

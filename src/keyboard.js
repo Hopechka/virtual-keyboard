@@ -457,7 +457,7 @@ export const KEY_CODE_TABLE = [
   'Comma',
   'Period',
   'Slash',
-  'NumpadDecimal',
+  'Delete',
   'ArrowUp',
   'ShiftRight',
   'fn',

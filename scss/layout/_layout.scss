@@ -29,6 +29,7 @@ main {
   overflow: auto;
   @include regular-font();
   background: $textarea-color;
+  outline: none;
 }
 
 .keyboard {
