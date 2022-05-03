@@ -9,7 +9,7 @@ import {
 } from './keyboard.js';
 
 let registerChoose = ENG_LOWER_CASE;
-let lang = 'en';
+let lang;
 let letter = 0;
 
 const backspace = registerChoose[13];
@@ -54,33 +54,33 @@ function btnsCreater(size) {
   if (BTN.innerHTML === capsLock) {
     BTN.classList.add('capslock');
   }
-  if (BTN.innerHTML === space) {
-    BTN.classList.add('space');
-  }
+  //   if (BTN.innerHTML === space) {
+  //     BTN.classList.add('space');
+  //   }
   if (BTN.innerHTML === leftCommand) {
     BTN.classList.add('metaleft');
   }
   if (BTN.innerHTML === rightCommand) {
     BTN.classList.add('metaright');
   }
-  if (BTN.innerHTML === arrowRight) {
-    BTN.classList.add('arrowright');
-  }
-  if (BTN.innerHTML === arrowLeft) {
-    BTN.classList.add('arrowleft');
-  }
-  if (BTN.innerHTML === arrowUp) {
-    BTN.classList.add('arrowup');
-  }
-  if (BTN.innerHTML === arrowDown) {
-    BTN.classList.add('arrowdown');
-  }
-  if (BTN.innerHTML === tab) {
-    BTN.classList.add('tab');
-  }
-  if (BTN.innerHTML === backspace) {
-    BTN.classList.add('backspace');
-  }
+  //   if (BTN.innerHTML === arrowRight) {
+  //     BTN.classList.add('arrowright');
+  //   }
+  //   if (BTN.innerHTML === arrowLeft) {
+  //     BTN.classList.add('arrowleft');
+  //   }
+  //   if (BTN.innerHTML === arrowUp) {
+  //     BTN.classList.add('arrowup');
+  //   }
+  //   if (BTN.innerHTML === arrowDown) {
+  //     BTN.classList.add('arrowdown');
+  //   }
+  //   if (BTN.innerHTML === tab) {
+  //     BTN.classList.add('tab');
+  //   }
+  //   if (BTN.innerHTML === backspace) {
+  //     BTN.classList.add('backspace');
+  //   }
   if (BTN.innerHTML === leftShift) {
     BTN.classList.add('shiftleft');
   }
@@ -96,9 +96,9 @@ function btnsCreater(size) {
   if (BTN.innerHTML === rightAlt) {
     BTN.classList.add('altright');
   }
-  if (BTN.innerHTML === enter) {
-    BTN.classList.add('enter');
-  }
+  //   if (BTN.innerHTML === enter) {
+  //     BTN.classList.add('enter');
+  //   }
   letter += 1;
   return BTN;
 }
@@ -136,7 +136,7 @@ function creatLayout() {
   HEADER_NAME.innerHTML = 'RSS Виртуальная клавиатура';
   MAIN.append(creatTextareaSection(), creatKeyboardSection());
   FOOTER.innerHTML =
-    'Клавиатура создана в операционной системе MAC OS <br/> Для переключения языка комбинация: option+space <br/> Клавиша fn нажимается в сочетании с цифрами';
+    'Клавиатура создана в операционной системе MAC OS <br/> Для переключения языка комбинация: option+space';
 
   // добавляю функционал для caps lock
   const CAPS_LOCK = document.querySelector('.capslock');
@@ -173,6 +173,7 @@ function creatLayout() {
   // добавляю функционал для смены языка
   function languageSwitching() {
     lang === 'en' ? (lang = 'ru') : (lang = 'en');
+    window.localStorage.setItem('lang', lang);
     if (CAPS_LOCK.classList.contains('press')) {
       if (lang === 'en') {
         registerChoose = ENG_UPPER_CASE;
@@ -262,9 +263,6 @@ function creatLayout() {
           keyboardKeyArray[i].classList.add('press');
         }
       }
-      if (i === 55) {
-        keyboardKeyArray[i].classList.add('press');
-      }
     }
   }
   function virtualKeyboardUnPress(code) {
@@ -279,9 +277,6 @@ function creatLayout() {
           keyboardKeyArray[i].classList.remove('press');
         }
       }
-      if (i === 55) {
-        keyboardKeyArray[i].classList.remove('press');
-      }
     }
   }
   let altTime;
@@ -294,7 +289,7 @@ function creatLayout() {
       spaceTime = Date.now();
     }
     if (Math.abs(altTime - spaceTime) < 250) {
-      languageSwitching();
+      languageSwitching(lang);
     }
   }
 
@@ -403,6 +398,12 @@ function creatLayout() {
       }
     }
   });
+  function getLocalStorage() {
+    lang = localStorage.getItem('lang');
+    lang === 'en' ? (lang = 'ru') : (lang = 'en');
+    languageSwitching();
+  }
+  window.addEventListener('load', getLocalStorage);
 }
 
 document.addEventListener('DOMContentLoaded', creatLayout);
