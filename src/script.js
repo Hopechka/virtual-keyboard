@@ -107,7 +107,7 @@ function creatLayout() {
   HEADER_NAME.innerHTML = 'RSS Виртуальная клавиатура';
   MAIN.append(creatTextareaSection(), creatKeyboardSection());
   FOOTER.innerHTML =
-    'Клавиатура создана в операционной системе MAC OS <br/> Для переключения языка комбинация: option+space';
+    'Клавиатура создана в операционной системе MAC OS <br/> Для переключения языка комбинация: option+space <br/> Для переключения языка мышкой: command';
 
   // добавляю функционал для caps lock
   const CAPS_LOCK = document.querySelector('.caps-lock');
