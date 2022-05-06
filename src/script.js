@@ -270,47 +270,104 @@ function creatLayout() {
   function showsTheCursorPosition(char) {
     const startPosition = TEXTAREA_SCREEN.selectionStart;
     const endPosition = TEXTAREA_SCREEN.selectionEnd;
-
-    if (startPosition === endPosition) {
-      TEXTAREA_SCREEN.focus();
-      if (char === 1) {
+    if (char === 1 || char === 2) {
+      if (startPosition === endPosition) {
+        TEXTAREA_SCREEN.focus();
+        if (char === 1) {
+          TEXTAREA_SCREEN.value =
+            TEXTAREA_SCREEN.value.substr(0, startPosition) +
+            TEXTAREA_SCREEN.value.substr(
+              startPosition + 1,
+              TEXTAREA_SCREEN.value.length
+            );
+          TEXTAREA_SCREEN.setSelectionRange(startPosition, endPosition);
+        } else {
+          TEXTAREA_SCREEN.value =
+            TEXTAREA_SCREEN.value.substr(0, startPosition - 1) +
+            TEXTAREA_SCREEN.value.substr(
+              startPosition,
+              TEXTAREA_SCREEN.value.length
+            );
+          TEXTAREA_SCREEN.setSelectionRange(startPosition - 1, endPosition - 1);
+        }
+      } else {
         TEXTAREA_SCREEN.value =
           TEXTAREA_SCREEN.value.substr(0, startPosition) +
           TEXTAREA_SCREEN.value.substr(
-            startPosition + 1,
+            endPosition,
             TEXTAREA_SCREEN.value.length
           );
-        TEXTAREA_SCREEN.setSelectionRange(startPosition, endPosition);
-      } else {
-        TEXTAREA_SCREEN.value =
-          TEXTAREA_SCREEN.value.substr(0, startPosition - 1) +
-          TEXTAREA_SCREEN.value.substr(
-            startPosition,
-            TEXTAREA_SCREEN.value.length
-          );
-        TEXTAREA_SCREEN.setSelectionRange(startPosition - 1, endPosition - 1);
+        TEXTAREA_SCREEN.focus();
+        TEXTAREA_SCREEN.setSelectionRange(
+          startPosition,
+          endPosition - (endPosition - startPosition)
+        );
       }
-    } else {
-      TEXTAREA_SCREEN.value =
-        TEXTAREA_SCREEN.value.substr(0, startPosition) +
-        TEXTAREA_SCREEN.value.substr(endPosition, TEXTAREA_SCREEN.value.length);
-      TEXTAREA_SCREEN.focus();
-      TEXTAREA_SCREEN.setSelectionRange(
-        startPosition,
-        endPosition - (endPosition - startPosition)
-      );
     }
+    // const middle = TEXTAREA_SCREEN.value.substr(startPosition, endPosition);
+    // TEXTAREA_SCREEN.value = TEXTAREA_SCREEN.value.substr(0, startPosition);
+    // TEXTAREA_SCREEN.focus();
+
+    // console.log(startPosition);
+    // console.log(endPosition);
+    // console.log(middle);
+    // TEXTAREA_SCREEN.setRangeText(middle, TEXTAREA_SCREEN.selectionStart, TEXTAREA_SCREEN.selectionEnd, 'end');
   }
   // настройка кнопки Delete
   function delBtn() {
     showsTheCursorPosition(1);
+    // const startPosition = TEXTAREA_SCREEN.selectionStart;
+    // const endPosition = TEXTAREA_SCREEN.selectionEnd;
+
+    // if (startPosition === endPosition) {
+    //   TEXTAREA_SCREEN.focus();
+    //   TEXTAREA_SCREEN.value =
+    //     TEXTAREA_SCREEN.value.substr(0, startPosition) +
+    //     TEXTAREA_SCREEN.value.substr(
+    //       startPosition + 1,
+    //       TEXTAREA_SCREEN.value.length
+    //     );
+    //   TEXTAREA_SCREEN.setSelectionRange(startPosition, endPosition);
+    // } else {
+    //   TEXTAREA_SCREEN.value =
+    //     TEXTAREA_SCREEN.value.substr(0, startPosition) +
+    //     TEXTAREA_SCREEN.value.substr(endPosition, TEXTAREA_SCREEN.value.length);
+    //   TEXTAREA_SCREEN.focus();
+    //   TEXTAREA_SCREEN.setSelectionRange(
+    //     startPosition,
+    //     endPosition - (endPosition - startPosition)
+    //   );
+    // }
   }
   // настройка кнопки Backspace
   function BackspaceBtn() {
-    showsTheCursorPosition();
+    showsTheCursorPosition(2);
+    // const startPosition = TEXTAREA_SCREEN.selectionStart;
+    // const endPosition = TEXTAREA_SCREEN.selectionEnd;
+
+    // if (startPosition === endPosition) {
+    //   TEXTAREA_SCREEN.focus();
+    //   TEXTAREA_SCREEN.value =
+    //     TEXTAREA_SCREEN.value.substr(0, startPosition - 1) +
+    //     TEXTAREA_SCREEN.value.substr(
+    //       startPosition,
+    //       TEXTAREA_SCREEN.value.length
+    //     );
+
+    //   TEXTAREA_SCREEN.setSelectionRange(startPosition - 1, endPosition - 1);
+    // } else {
+    //   TEXTAREA_SCREEN.value =
+    //     TEXTAREA_SCREEN.value.substr(0, startPosition) +
+    //     TEXTAREA_SCREEN.value.substr(endPosition, TEXTAREA_SCREEN.value.length);
+    //   TEXTAREA_SCREEN.setSelectionRange(
+    //     startPosition,
+    //     endPosition - (endPosition - startPosition)
+    //   );
+    // }
   }
 
   // переназначение клавиш клавиатуры
+
   document.addEventListener('keydown', (e) => {
     TEXTAREA_SCREEN.focus();
     virtualKeyboardPress(e.code);
@@ -319,13 +376,14 @@ function creatLayout() {
     }
 
     try {
+      let middle = '';
       e.preventDefault();
       if (e.key === 'Tab') {
-        TEXTAREA_SCREEN.value += '   ';
+        middle = '   ';
       } else if (e.key === 'Enter') {
-        TEXTAREA_SCREEN.value += '\n';
+        middle = '\n';
       } else if (e.code === 'Space') {
-        TEXTAREA_SCREEN.value += ' ';
+        middle = ' ';
       } else if (
         e.key === 'Alt' ||
         e.key === 'Control' ||
@@ -333,15 +391,15 @@ function creatLayout() {
         e.key === 'Shift' ||
         e.key === 'Meta'
       ) {
-        TEXTAREA_SCREEN.value += '';
+        middle = '';
       } else if (e.key === 'ArrowUp') {
-        TEXTAREA_SCREEN.value += '▲';
+        middle = '▲';
       } else if (e.key === 'ArrowDown') {
-        TEXTAREA_SCREEN.value += '▼';
+        middle = '▼';
       } else if (e.key === 'ArrowLeft') {
-        TEXTAREA_SCREEN.value += '◀';
+        middle = '◀';
       } else if (e.key === 'ArrowRight') {
-        TEXTAREA_SCREEN.value += '▶';
+        middle = '▶';
       } else if (e.key === 'Backspace') {
         BackspaceBtn();
       } else if (e.key === 'Delete') {
@@ -355,11 +413,17 @@ function creatLayout() {
             (i >= 42 && i <= 51)
           ) {
             if (KEY_CODE_TABLE[i] === e.code) {
-              TEXTAREA_SCREEN.value += registerChoose[i];
+              middle = registerChoose[i];
             }
           }
         }
       }
+      TEXTAREA_SCREEN.setRangeText(
+        middle,
+        TEXTAREA_SCREEN.selectionStart,
+        TEXTAREA_SCREEN.selectionEnd,
+        'end'
+      );
     } catch (i) {
       i;
     }
@@ -372,17 +436,18 @@ function creatLayout() {
 
   document.addEventListener('click', (e) => {
     TEXTAREA_SCREEN.focus();
+    let middle = '';
     if (
       e.target.classList.contains('keyboard_key') ||
       e.target.classList.contains('material-icons')
     ) {
       const target = e.target.closest('.keyboard_key');
       if (target.innerHTML === tab) {
-        TEXTAREA_SCREEN.value += '   ';
+        middle = '   ';
       } else if (target.innerHTML === enter) {
-        TEXTAREA_SCREEN.value += '\n';
+        middle = '\n';
       } else if (target.innerHTML === space) {
-        TEXTAREA_SCREEN.value += ' ';
+        middle = ' ';
       } else if (
         target.innerHTML === leftAlt ||
         target.innerHTML === rightAlt ||
@@ -394,24 +459,31 @@ function creatLayout() {
         target.innerHTML === rightCommand ||
         target.innerHTML === fn
       ) {
-        TEXTAREA_SCREEN.value += '';
+        middle = '';
       } else if (target.innerHTML === arrowUp) {
-        TEXTAREA_SCREEN.value += '▲';
+        middle = '▲';
       } else if (target.innerHTML === arrowDown) {
-        TEXTAREA_SCREEN.value += '▼';
+        middle = '▼';
       } else if (target.innerHTML === arrowLeft) {
-        TEXTAREA_SCREEN.value += '◀';
+        middle = '◀';
       } else if (target.innerHTML === arrowRight) {
-        TEXTAREA_SCREEN.value += '▶';
+        middle = '▶';
       } else if (target.innerHTML === backspace) {
         BackspaceBtn();
       } else if (target.innerHTML === del) {
         delBtn();
       } else {
-        TEXTAREA_SCREEN.value += target.innerHTML;
+        middle = target.innerHTML;
       }
     }
+    TEXTAREA_SCREEN.setRangeText(
+      middle,
+      TEXTAREA_SCREEN.selectionStart,
+      TEXTAREA_SCREEN.selectionEnd,
+      'end'
+    );
   });
+
   function getLocalStorage() {
     lang = localStorage.getItem('lang');
     languageChange();
