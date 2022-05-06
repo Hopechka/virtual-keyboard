@@ -267,20 +267,29 @@ function creatLayout() {
       languageSwitching();
     }
   }
-  // настройка кнопки Delete
-  function delBtn() {
+  function showsTheCursorPosition(char) {
     const startPosition = TEXTAREA_SCREEN.selectionStart;
     const endPosition = TEXTAREA_SCREEN.selectionEnd;
 
     if (startPosition === endPosition) {
       TEXTAREA_SCREEN.focus();
-      TEXTAREA_SCREEN.value =
-        TEXTAREA_SCREEN.value.substr(0, startPosition) +
-        TEXTAREA_SCREEN.value.substr(
-          startPosition + 1,
-          TEXTAREA_SCREEN.value.length
-        );
-      TEXTAREA_SCREEN.setSelectionRange(startPosition, endPosition);
+      if (char === 1) {
+        TEXTAREA_SCREEN.value =
+          TEXTAREA_SCREEN.value.substr(0, startPosition) +
+          TEXTAREA_SCREEN.value.substr(
+            startPosition + 1,
+            TEXTAREA_SCREEN.value.length
+          );
+        TEXTAREA_SCREEN.setSelectionRange(startPosition, endPosition);
+      } else {
+        TEXTAREA_SCREEN.value =
+          TEXTAREA_SCREEN.value.substr(0, startPosition - 1) +
+          TEXTAREA_SCREEN.value.substr(
+            startPosition,
+            TEXTAREA_SCREEN.value.length
+          );
+        TEXTAREA_SCREEN.setSelectionRange(startPosition - 1, endPosition - 1);
+      }
     } else {
       TEXTAREA_SCREEN.value =
         TEXTAREA_SCREEN.value.substr(0, startPosition) +
@@ -291,34 +300,17 @@ function creatLayout() {
         endPosition - (endPosition - startPosition)
       );
     }
+  }
+  // настройка кнопки Delete
+  function delBtn() {
+    showsTheCursorPosition(1);
   }
   // настройка кнопки Backspace
   function BackspaceBtn() {
-    const startPosition = TEXTAREA_SCREEN.selectionStart;
-    const endPosition = TEXTAREA_SCREEN.selectionEnd;
-
-    if (startPosition === endPosition) {
-      TEXTAREA_SCREEN.focus();
-      TEXTAREA_SCREEN.value =
-        TEXTAREA_SCREEN.value.substr(0, startPosition - 1) +
-        TEXTAREA_SCREEN.value.substr(
-          startPosition,
-          TEXTAREA_SCREEN.value.length
-        );
-
-      TEXTAREA_SCREEN.setSelectionRange(startPosition - 1, endPosition - 1);
-    } else {
-      TEXTAREA_SCREEN.value =
-        TEXTAREA_SCREEN.value.substr(0, startPosition) +
-        TEXTAREA_SCREEN.value.substr(endPosition, TEXTAREA_SCREEN.value.length);
-      TEXTAREA_SCREEN.setSelectionRange(
-        startPosition,
-        endPosition - (endPosition - startPosition)
-      );
-    }
+    showsTheCursorPosition();
   }
-  // переназначение клавиш клавиатуры
 
+  // переназначение клавиш клавиатуры
   document.addEventListener('keydown', (e) => {
     TEXTAREA_SCREEN.focus();
     virtualKeyboardPress(e.code);
