@@ -304,66 +304,14 @@ function creatLayout() {
         );
       }
     }
-    // const middle = TEXTAREA_SCREEN.value.substr(startPosition, endPosition);
-    // TEXTAREA_SCREEN.value = TEXTAREA_SCREEN.value.substr(0, startPosition);
-    // TEXTAREA_SCREEN.focus();
-
-    // console.log(startPosition);
-    // console.log(endPosition);
-    // console.log(middle);
-    // TEXTAREA_SCREEN.setRangeText(middle, TEXTAREA_SCREEN.selectionStart, TEXTAREA_SCREEN.selectionEnd, 'end');
   }
   // настройка кнопки Delete
   function delBtn() {
     showsTheCursorPosition(1);
-    // const startPosition = TEXTAREA_SCREEN.selectionStart;
-    // const endPosition = TEXTAREA_SCREEN.selectionEnd;
-
-    // if (startPosition === endPosition) {
-    //   TEXTAREA_SCREEN.focus();
-    //   TEXTAREA_SCREEN.value =
-    //     TEXTAREA_SCREEN.value.substr(0, startPosition) +
-    //     TEXTAREA_SCREEN.value.substr(
-    //       startPosition + 1,
-    //       TEXTAREA_SCREEN.value.length
-    //     );
-    //   TEXTAREA_SCREEN.setSelectionRange(startPosition, endPosition);
-    // } else {
-    //   TEXTAREA_SCREEN.value =
-    //     TEXTAREA_SCREEN.value.substr(0, startPosition) +
-    //     TEXTAREA_SCREEN.value.substr(endPosition, TEXTAREA_SCREEN.value.length);
-    //   TEXTAREA_SCREEN.focus();
-    //   TEXTAREA_SCREEN.setSelectionRange(
-    //     startPosition,
-    //     endPosition - (endPosition - startPosition)
-    //   );
-    // }
   }
   // настройка кнопки Backspace
   function BackspaceBtn() {
     showsTheCursorPosition(2);
-    // const startPosition = TEXTAREA_SCREEN.selectionStart;
-    // const endPosition = TEXTAREA_SCREEN.selectionEnd;
-
-    // if (startPosition === endPosition) {
-    //   TEXTAREA_SCREEN.focus();
-    //   TEXTAREA_SCREEN.value =
-    //     TEXTAREA_SCREEN.value.substr(0, startPosition - 1) +
-    //     TEXTAREA_SCREEN.value.substr(
-    //       startPosition,
-    //       TEXTAREA_SCREEN.value.length
-    //     );
-
-    //   TEXTAREA_SCREEN.setSelectionRange(startPosition - 1, endPosition - 1);
-    // } else {
-    //   TEXTAREA_SCREEN.value =
-    //     TEXTAREA_SCREEN.value.substr(0, startPosition) +
-    //     TEXTAREA_SCREEN.value.substr(endPosition, TEXTAREA_SCREEN.value.length);
-    //   TEXTAREA_SCREEN.setSelectionRange(
-    //     startPosition,
-    //     endPosition - (endPosition - startPosition)
-    //   );
-    // }
   }
 
   // переназначение клавиш клавиатуры
