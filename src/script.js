@@ -309,14 +309,6 @@ function creatLayout() {
       TEXTAREA_SCREEN.setSelectionRange(startPosition + n, endPosition + n);
     }
   }
-  // настройка кнопки Delete
-  //   function delBtn() {
-  //     showsTheCursorPosition('delete');
-  //   }
-  // настройка кнопки Backspace
-  //   function BackspaceBtn() {
-  //     showsTheCursorPosition('backspace');
-  //   }
 
   // переназначение клавиш клавиатуры
 
