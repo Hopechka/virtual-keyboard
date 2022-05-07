@@ -270,10 +270,10 @@ function creatLayout() {
   function showsTheCursorPosition(char) {
     const startPosition = TEXTAREA_SCREEN.selectionStart;
     const endPosition = TEXTAREA_SCREEN.selectionEnd;
-    if (char === 1 || char === 2) {
+    if (char === 'delete' || char === 'backspace') {
       if (startPosition === endPosition) {
         TEXTAREA_SCREEN.focus();
-        if (char === 1) {
+        if (char === 'delete') {
           TEXTAREA_SCREEN.value =
             TEXTAREA_SCREEN.value.substr(0, startPosition) +
             TEXTAREA_SCREEN.value.substr(
@@ -303,16 +303,20 @@ function creatLayout() {
           endPosition - (endPosition - startPosition)
         );
       }
+    } else if (char === 'ArrowLeft' || char === 'ArrowRight') {
+      let n;
+      char === 'ArrowLeft' ? (n = -1) : (n = 1);
+      TEXTAREA_SCREEN.setSelectionRange(startPosition + n, endPosition + n);
     }
   }
   // настройка кнопки Delete
-  function delBtn() {
-    showsTheCursorPosition(1);
-  }
+  //   function delBtn() {
+  //     showsTheCursorPosition('delete');
+  //   }
   // настройка кнопки Backspace
-  function BackspaceBtn() {
-    showsTheCursorPosition(2);
-  }
+  //   function BackspaceBtn() {
+  //     showsTheCursorPosition('backspace');
+  //   }
 
   // переназначение клавиш клавиатуры
 
@@ -345,13 +349,17 @@ function creatLayout() {
       } else if (e.key === 'ArrowDown') {
         middle = '▼';
       } else if (e.key === 'ArrowLeft') {
-        middle = '◀';
+        showsTheCursorPosition('ArrowLeft');
+        middle = '';
+        // middle = '◀';
       } else if (e.key === 'ArrowRight') {
-        middle = '▶';
+        showsTheCursorPosition('ArrowRight');
+        middle = '';
+        // middle = '▶';
       } else if (e.key === 'Backspace') {
-        BackspaceBtn();
+        showsTheCursorPosition('backspace');
       } else if (e.key === 'Delete') {
-        delBtn();
+        showsTheCursorPosition('delete');
       } else {
         for (let i = 0; i < 65; i += 1) {
           if (
@@ -366,12 +374,14 @@ function creatLayout() {
           }
         }
       }
-      TEXTAREA_SCREEN.setRangeText(
-        middle,
-        TEXTAREA_SCREEN.selectionStart,
-        TEXTAREA_SCREEN.selectionEnd,
-        'end'
-      );
+      if (TEXTAREA_SCREEN.selectionStart === TEXTAREA_SCREEN.selectionEnd) {
+        TEXTAREA_SCREEN.setRangeText(
+          middle,
+          TEXTAREA_SCREEN.selectionStart,
+          TEXTAREA_SCREEN.selectionEnd,
+          'end'
+        );
+      }
     } catch (i) {
       i;
     }
@@ -413,23 +423,29 @@ function creatLayout() {
       } else if (target.innerHTML === arrowDown) {
         middle = '▼';
       } else if (target.innerHTML === arrowLeft) {
-        middle = '◀';
+        showsTheCursorPosition('ArrowLeft');
+        middle = '';
+        // middle = '◀';
       } else if (target.innerHTML === arrowRight) {
-        middle = '▶';
+        showsTheCursorPosition('ArrowRight');
+        middle = '';
+        // middle = '▶';
       } else if (target.innerHTML === backspace) {
-        BackspaceBtn();
+        showsTheCursorPosition('backspace');
       } else if (target.innerHTML === del) {
-        delBtn();
+        showsTheCursorPosition('delete');
       } else {
         middle = target.innerHTML;
       }
     }
-    TEXTAREA_SCREEN.setRangeText(
-      middle,
-      TEXTAREA_SCREEN.selectionStart,
-      TEXTAREA_SCREEN.selectionEnd,
-      'end'
-    );
+    if (TEXTAREA_SCREEN.selectionStart === TEXTAREA_SCREEN.selectionEnd) {
+      TEXTAREA_SCREEN.setRangeText(
+        middle,
+        TEXTAREA_SCREEN.selectionStart,
+        TEXTAREA_SCREEN.selectionEnd,
+        'end'
+      );
+    }
   });
 
   function getLocalStorage() {
