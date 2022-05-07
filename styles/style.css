@@ -91,6 +91,10 @@ main {
   box-shadow: 10px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
+footer {
+  text-align: center;
+}
+
 button {
   cursor: pointer;
   border: 1px solid #4da2d3;
