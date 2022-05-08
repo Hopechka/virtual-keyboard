@@ -323,7 +323,7 @@ function creatLayout() {
       let middle = '';
       e.preventDefault();
       if (e.key === 'Tab') {
-        middle = '   ';
+        middle = '    ';
       } else if (e.key === 'Enter') {
         middle = '\n';
       } else if (e.code === 'Space') {
@@ -393,7 +393,7 @@ function creatLayout() {
     ) {
       const target = e.target.closest('.keyboard_key');
       if (target.innerHTML === tab) {
-        middle = '   ';
+        middle = '    ';
       } else if (target.innerHTML === enter) {
         middle = '\n';
       } else if (target.innerHTML === space) {
