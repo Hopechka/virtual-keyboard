@@ -343,11 +343,9 @@ function creatLayout() {
       } else if (e.key === 'ArrowLeft') {
         showsTheCursorPosition('ArrowLeft');
         middle = '';
-        // middle = '◀';
       } else if (e.key === 'ArrowRight') {
         showsTheCursorPosition('ArrowRight');
         middle = '';
-        // middle = '▶';
       } else if (e.key === 'Backspace') {
         showsTheCursorPosition('backspace');
       } else if (e.key === 'Delete') {
@@ -417,11 +415,9 @@ function creatLayout() {
       } else if (target.innerHTML === arrowLeft) {
         showsTheCursorPosition('ArrowLeft');
         middle = '';
-        // middle = '◀';
       } else if (target.innerHTML === arrowRight) {
         showsTheCursorPosition('ArrowRight');
         middle = '';
-        // middle = '▶';
       } else if (target.innerHTML === backspace) {
         showsTheCursorPosition('backspace');
       } else if (target.innerHTML === del) {
