@@ -30,6 +30,7 @@ main {
   @include regular-font();
   background: $textarea-color;
   outline: none;
+  text-align: justify;
 }
 
 .keyboard {
