@@ -1,0 +1,46 @@
+// * {
+//   outline: 1px solid red;
+// }
+
+html {
+  background: $site-color;
+  @include regular-font();
+}
+
+body {
+  margin: 0 auto;
+  max-width: 1280px;
+}
+.container {
+  margin: 0 auto;
+  max-width: 1200px;
+  @include flex-column();
+  gap: 30px;
+  padding-top: 40px;
+  box-sizing: border-box;
+}
+main {
+  @include flex-column();
+  gap: 20px;
+}
+.screen {
+  width: 100%;
+  width: 800px;
+  overflow: auto;
+  @include regular-font();
+  background: $textarea-color;
+  outline: none;
+  text-align: justify;
+}
+
+.keyboard {
+  background: $keyboard-color;
+  width: 100%;
+  border-radius: 8px;
+  padding: 5px;
+  height: 265px;
+  box-shadow: 10px 5px 15px rgba(0, 0, 0, 0.5);
+}
+footer {
+  text-align: center;
+}
